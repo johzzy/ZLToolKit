@@ -150,7 +150,7 @@ public:
         return _fd;
     }
 
-    SockType type() {
+    SockType type() const {
         return _type;
     }
 
@@ -240,7 +240,7 @@ public:
         return _num;
     }
 
-    SockNum::SockType type() {
+    SockNum::SockType type() const {
         return _num->type();
     }
 
