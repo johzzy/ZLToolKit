@@ -810,7 +810,7 @@ public:
     SockSender() = default;
     virtual ~SockSender() = default;
     virtual ssize_t send(Buffer::Ptr buf) = 0;
-    virtual void shutdown(const SockException &ex = SockException(Err_shutdown, "self shutdown")) = 0;
+    virtual void shutdown(const SockException &ex) = 0;
 
     //发送char *  [AUTO-TRANSLATED:ab84aeb3]
     //Send char *
@@ -969,7 +969,7 @@ public:
      
      * [AUTO-TRANSLATED:b485450f]
      */
-    void shutdown(const SockException &ex = SockException(Err_shutdown, "self shutdown")) override;
+    void shutdown(const SockException &ex) override;
 
     /**
      * 线程安全的脱离 Server 并触发 onError 事件
