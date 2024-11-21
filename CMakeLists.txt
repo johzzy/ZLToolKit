@@ -86,20 +86,17 @@ else ()
     set(LINK_LIB_LIST)
 endif ()
 
+find_package(WebRTC REQUIRED)
+
 
 set(ENABLE_OPENSSL ON CACHE BOOL "enable openssl")
 set(ENABLE_MYSQL ON CACHE BOOL "enable mysql")
 set(ASAN_USE_DELETE OFF CACHE BOOL "use delele[] or free when asan enabled")
 
-#查找openssl是否安装
-#Find out if openssl is installed
-find_package(OpenSSL QUIET)
-if (OPENSSL_FOUND AND ENABLE_OPENSSL)
     message(STATUS "找到openssl库:\"${OPENSSL_INCLUDE_DIR}\",ENABLE_OPENSSL宏已打开")
     include_directories(${OPENSSL_INCLUDE_DIR})
     add_definitions(-DENABLE_OPENSSL)
     list(APPEND LINK_LIB_LIST ${OPENSSL_LIBRARIES})
-endif ()
 
 #查找mysql是否安装
 #Find out if mysql is installed
@@ -123,7 +120,7 @@ endif ()
 message(STATUS "将链接依赖库:${LINK_LIB_LIST}")
 #使能c++11
 #Enable c++11
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 if (NOT WIN32)
     add_compile_options(-Wno-deprecated-declarations)

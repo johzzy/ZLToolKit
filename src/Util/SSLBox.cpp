@@ -88,7 +88,12 @@ SSL_Initor::~SSL_Initor() {
     CRYPTO_set_locking_callback(nullptr);
     //sk_SSL_COMP_free(SSL_COMP_get_compression_methods());
     CRYPTO_cleanup_all_ex_data();
+#ifdef OPENSSL_IS_BORINGSSL
+    // BoringSSL 不支持 CONF_modules_unload
+#else
+    // OpenSSL 支持 CONF_modules_unload
     CONF_modules_unload(1);
+#endif
     CONF_modules_free();
 #endif //defined(ENABLE_OPENSSL)
 }
