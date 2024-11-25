@@ -268,6 +268,7 @@ private:
     }
 
     void write(T in, bool is_key = true) {
+        // publish here
         for (auto it = _reader_map.begin(); it != _reader_map.end();) {
             auto reader = it->second.lock();
             if (!reader) {
@@ -379,6 +380,7 @@ public:
 
         LOCK_GUARD(_mtx_map);
         for (auto &pr : _dispatcher_map) {
+            // play item in _dispatcher_map
             auto &second = pr.second;
             //切换线程后触发onRead事件  [AUTO-TRANSLATED:4ca6647d]
             //Switch thread and trigger onRead event
