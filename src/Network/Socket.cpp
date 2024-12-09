@@ -335,14 +335,10 @@ ssize_t Socket::onRead(const SockNum::Ptr &sock, const SocketRecvBuffer::Ptr &bu
 
         auto &buf = buffer->getBuffer(0);
         auto &addr = buffer->getAddress(0);
-        try {
             // 此处捕获异常，目的是防止数据未读尽，epoll边沿触发失效的问题  [AUTO-TRANSLATED:2f3f813b]
             //Catch exception here, the purpose is to prevent data from not being read completely, and the epoll edge trigger fails
             LOCK_GUARD(_mtx_event);
             _on_multi_read(&buf, &addr, count);
-        } catch (std::exception &ex) {
-            ErrorL << "Exception occurred when emit on_read: " << ex.what();
-        }
     }
     return 0;
 }

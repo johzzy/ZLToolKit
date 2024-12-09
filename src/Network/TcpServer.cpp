@@ -138,13 +138,7 @@ Session::Ptr TcpServer::onAcceptConnection(const Socket::Ptr &sock) {
         if (!strong_session) {
             return;
         }
-        try {
-            strong_session->onRecv(buf);
-        } catch (SockException &ex) {
-            strong_session->shutdown(ex);
-        } catch (exception &ex) {
-            strong_session->shutdown(SockException(Err_shutdown, ex.what()));
-        }
+        strong_session->onRecv(buf);
     });
 
     SessionHelper *ptr = helper.get();
