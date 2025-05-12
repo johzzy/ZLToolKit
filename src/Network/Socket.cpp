@@ -307,7 +307,9 @@ ssize_t Socket::onRead(const SockNum::Ptr &sock, const SocketRecvBuffer::Ptr &bu
         nread = buffer->recvFromSocket(sock->rawFd(), count);
         if (nread == 0) {
             if (sock->type() == SockNum::Sock_TCP) {
-                emitErr(SockException(Err_eof, "end of file"));
+                WarnL << "end of file, ignore";
+                // emitErr(SockException(Err_eof, "end of file"));
+                return 0;
             } else {
                 WarnL << "Recv eof on udp socket[" << sock->rawFd() << "]";
             }
