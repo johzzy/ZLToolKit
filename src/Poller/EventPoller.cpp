@@ -529,16 +529,16 @@ uint64_t EventPoller::flushDelayTask(uint64_t now_time) {
     for (auto it = task_copy.begin(); it != task_copy.end() && it->first <= now_time; it = task_copy.erase(it)) {
         //已到期的任务  [AUTO-TRANSLATED:849cdc29]
         //Expired tasks
-        try {
+        // try {
             auto next_delay = (*(it->second))();
             if (next_delay) {
                 //可重复任务,更新时间截止线  [AUTO-TRANSLATED:c7746a21]
                 //Repeatable tasks, update deadline
                 _delay_task_map.emplace(next_delay + now_time, std::move(it->second));
             }
-        } catch (std::exception &ex) {
-            ErrorL << "Exception occurred when do delay task: " << ex.what();
-        }
+        // } catch (std::exception &ex) {
+        //     ErrorL << "Exception occurred when do delay task: " << ex.what();
+        // }
     }
 
     task_copy.insert(_delay_task_map.begin(), _delay_task_map.end());
